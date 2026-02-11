@@ -45,7 +45,7 @@ function App() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="max-w-md bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-8">
         <div className="bg-white rounded-lg shadow-lg p-6">
-          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          <h1 className="text-[2rem] font-bold text-center text-gray-800 mb-6">
             📝 Todoアプリ!
           </h1>
 
@@ -61,7 +61,7 @@ function App() {
             />
             <button
               onClick={handleAddTodo}
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+              className="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 shadow-lg"
             >
               追加
             </button>
