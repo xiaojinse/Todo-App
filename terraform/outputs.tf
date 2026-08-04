@@ -10,7 +10,7 @@ output "project_region" {
 
 output "app_endpoint" {
   description = "Public HTTPS URL of the deployed application"
-  value       = "https://${ibm_code_engine_app.main.endpoint_internal != "" ? ibm_code_engine_app.main.endpoint_internal : ibm_code_engine_app.main.name}.${ibm_code_engine_project.main.project_id}.${var.region}.codeengine.appdomain.cloud"
+  value       = ibm_code_engine_app.main.endpoint
 }
 
 output "app_status" {
