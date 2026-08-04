@@ -4,17 +4,17 @@ output "project_id" {
 }
 
 output "project_region" {
-  description = "Code Engine Project 所在区域"
+  description = "Region where the Code Engine Project is deployed"
   value       = ibm_code_engine_project.main.region
 }
 
 output "app_endpoint" {
-  description = "应用对外暴露的 HTTPS URL"
+  description = "Public HTTPS URL of the deployed application"
   value       = "https://${ibm_code_engine_app.main.endpoint_internal != "" ? ibm_code_engine_app.main.endpoint_internal : ibm_code_engine_app.main.name}.${ibm_code_engine_project.main.project_id}.${var.region}.codeengine.appdomain.cloud"
 }
 
 output "app_status" {
-  description = "应用当前状态"
+  description = "Current status of the Code Engine application"
   value       = ibm_code_engine_app.main.status
 }
 

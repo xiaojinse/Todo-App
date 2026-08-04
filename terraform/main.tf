@@ -1,15 +1,15 @@
-# ─── 数据源：Resource Group ───────────────────────────────────────────────────
+# --- Data Source: Resource Group ---------------------------------------------
 data "ibm_resource_group" "rg" {
   name = var.resource_group_name
 }
 
-# ─── Code Engine Project ──────────────────────────────────────────────────────
+# --- Code Engine Project -----------------------------------------------------
 resource "ibm_code_engine_project" "main" {
   name              = var.ce_project_name
   resource_group_id = data.ibm_resource_group.rg.id
 }
 
-# ─── Registry Secret（拉取 ICR 私有镜像）──────────────────────────────────────
+# --- Registry Secret (pull private ICR image) --------------------------------
 resource "ibm_code_engine_secret" "icr_pull" {
   project_id = ibm_code_engine_project.main.project_id
   name       = var.icr_secret_name
@@ -23,7 +23,7 @@ resource "ibm_code_engine_secret" "icr_pull" {
   }
 }
 
-# ─── Code Engine Application ──────────────────────────────────────────────────
+# --- Code Engine Application -------------------------------------------------
 resource "ibm_code_engine_app" "main" {
   project_id = ibm_code_engine_project.main.project_id
   name       = var.ce_app_name
@@ -31,15 +31,15 @@ resource "ibm_code_engine_app" "main" {
   image_reference = var.image_url
   image_secret    = ibm_code_engine_secret.icr_pull.name
 
-  scale_min_instances        = var.ce_app_min_scale
-  scale_max_instances        = var.ce_app_max_scale
-  scale_cpu_limit            = var.ce_app_cpu
-  scale_memory_limit         = var.ce_app_memory
-  scale_concurrency          = var.ce_app_concurrency
-  scale_request_timeout      = 300
+  scale_min_instances   = var.ce_app_min_scale
+  scale_max_instances   = var.ce_app_max_scale
+  scale_cpu_limit       = var.ce_app_cpu
+  scale_memory_limit    = var.ce_app_memory
+  scale_concurrency     = var.ce_app_concurrency
+  scale_request_timeout = 300
 
-  # 容器端口
-  probe_liveness = []
+  # Container port
+  probe_liveness  = []
   probe_readiness = []
 
   run_env_variables = [
