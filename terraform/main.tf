@@ -38,17 +38,14 @@ resource "ibm_code_engine_app" "main" {
   scale_concurrency     = var.ce_app_concurrency
   scale_request_timeout = 300
 
-  # Container port
-  probe_liveness  = []
-  probe_readiness = []
-
-  run_env_variables = [
-    for k, v in var.app_env_vars : {
+  dynamic "run_env_variables" {
+    for_each = var.app_env_vars
+    content {
       type  = "literal"
-      name  = k
-      value = v
+      name  = run_env_variables.key
+      value = run_env_variables.value
     }
-  ]
+  }
 
   depends_on = [
     ibm_code_engine_secret.icr_pull,
